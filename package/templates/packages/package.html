@@ -1,0 +1,70 @@
+{% extends 'admins/layout.html' %}
+
+    {% load static %}
+
+    {%block title%}
+        <title>Packages</title>
+    {%endblock%}
+{% block main-content %}
+<h2 class="text-center m-3">All packages</h2>
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-8">
+            {% for msg in messages %}
+            {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                <div class="alert alert-success">
+                    {{msg}}
+                </div>
+
+            {% endif %}
+        {% endfor %}
+
+        {% for msg in messages %}
+            {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                <div class="alert alert-danger">
+                    {{msg}}
+                </div>
+
+            {% endif %}
+        {% endfor %}
+            <table class="table table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th>Package Name</th>
+                        <th>Package Price</th>
+                        <th>Availability</th>
+                        <th>Package Description</th>
+                        <th>Image</th>
+                        <th>Location</th>
+                        <th>Duration</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                 {% for item in packages %}
+                 <tr>
+                    <td>{{item.name}}</td>
+                    <td>{{item.price}}</td>
+                    <td>{{item.availability}}</td>
+                    <td class="text-start">{{item.description}}</td>
+                    <td><img src="/{{item.product_image}}" alt="{{item.product_name}}" width="100" height="90"></td>
+                    <td>{{item.location}}</td>
+                    <td>{{item.duration}}</td>
+                    <td>
+                        <a href="/package/updatepackage/{{item.id}}" class="btn btn-primary">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        <br><br>
+                        <a href="/package/deletepackage/{{item.id}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this package?')">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </td>
+                 </tr>
+                 {% endfor %}
+                </tbody>
+            </table>
+            <!-- <img src="{% static 'images/img3.png' %}" alt=""> -->
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+<!-- templates/seller_dashboard.html -->
+<h1>My Bookings</h1>
+
+{% if bookings %}
+    <table>
+        <thead>
+            <tr>
+                <th>Booking ID</th>
+                <th>Package</th>
+                <th>Hotel</th>
+                <th>Activity</th>
+                <th>Booking Date</th>
+                <th>Number of People</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.id }}</td>
+                <td>{{ booking.package_name }}</td>
+                <td>{{ booking.hotel_name }}</td>
+                <td>{{ booking.activity_name }}</td>
+                <td>{{ booking.booking_date }}</td>
+                <td>{{ booking.number_of_people }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No bookings found for your properties.</p>
+{% endif %}

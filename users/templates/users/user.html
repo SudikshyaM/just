@@ -1,0 +1,65 @@
+{% extends 'admins/layout.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Users</title>
+{% endblock %}
+
+{% block main-content %}
+
+<!-- start of user section -->
+<div class="container my-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10">
+            {% if users|length < 1 %}
+                <h2 class="text-center text-danger my-3">No users</h2>
+            {% else %}
+                <h2 class="text-center">Users</h2>
+
+                {% for msg in messages %}
+                    {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                        <div class="alert alert-success">
+                            {{ msg }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+                {% for msg in messages %}
+                    {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                        <div class="alert alert-danger">
+                            {{ msg }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for i in users %}
+                            <tr>
+                                <td>{{ i.email }}</td>
+                                <td>{{ i.role }}</td>
+                                <td>{{ i.is_approved }}</td>
+                                <td>
+                                    <a href="{% url 'approve_seller' i.id %}" class="btn btn-success">Approve</a>
+                                    <a href="{% url 'reject_seller' i.id %}" class="btn btn-danger">Reject</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<!-- end of user section -->
+
+{% endblock %}
